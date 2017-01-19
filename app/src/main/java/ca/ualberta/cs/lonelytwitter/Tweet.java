@@ -58,4 +58,8 @@ public abstract class Tweet implements Tweetable{
     public void addMood(Mood m) {
         this.moodList.add(m);
     }
+
+    public List<Mood> getMoodList() {
+        return this.moodList;
+    }
 }
