@@ -85,7 +85,6 @@ public class LonelyTwitterActivity extends Activity {
 				tweetList.clear();
 				adapter.notifyDataSetChanged();
 				saveInFile();
-				deleteFile(FILENAME);
 			}
 		});
 	}
