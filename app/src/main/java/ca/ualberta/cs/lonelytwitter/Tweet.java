@@ -58,4 +58,9 @@ public abstract class Tweet implements Tweetable{
     public void addMood(Mood m) {
         this.moodList.add(m);
     }
+
+    @Override
+    public String toString() {
+        return date.toString() + " | " + message;
+    }
 }
