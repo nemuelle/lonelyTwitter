@@ -85,6 +85,7 @@ public class LonelyTwitterActivity extends Activity {
 				tweetList.clear();
 				adapter.notifyDataSetChanged();
 				saveInFile();
+				deleteFile(FILENAME);
 			}
 		});
 	}
@@ -137,5 +138,6 @@ public class LonelyTwitterActivity extends Activity {
 		} catch (IOException e) {
 			throw new RuntimeException();
 		}
+
 	}
 }
