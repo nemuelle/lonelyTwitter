@@ -14,6 +14,7 @@ public class BadMood extends Mood {
     }
 
     public BadMood() {
+        super();
     }
 
     public String getMood() {
