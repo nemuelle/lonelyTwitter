@@ -3,10 +3,22 @@ package ca.ualberta.cs.lonelytwitter;
 import java.util.Date;
 
 /**
- * Created by Nathan on 1/17/2017.
+ * Define what is Tweetable
+ *
+ * @author Nathan
  */
-
 public interface Tweetable {
+    /**
+     * Gets message.
+     *
+     * @return the message
+     */
     public String getMessage();
+
+    /**
+     * Gets date.
+     *
+     * @return the date
+     */
     public Date getDate();
 }
