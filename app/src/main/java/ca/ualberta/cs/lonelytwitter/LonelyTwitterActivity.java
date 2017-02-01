@@ -24,10 +24,47 @@ import android.widget.ListView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+/**
+ * The class is the main view class of the project. <br> In this class, user interaction
+ * and file manipulation is performed.
+ * All files are in the form of "json" files that are stores in Emulator's accessible from Android
+ * Device Monitor.
+ * <pre>
+ *     pre-fromatted text: <br>
+ *         File Explorer -> data -> data -> ca.ualberta.cs.lonelytwitter -> files -> file.sav
+ * </pre>
+ * <code>
+ * begin <br>
+ * some pseudo code <br>
+ * end.
+ * </code>
+ * The file name is indicated in the &nbsp &nbsp &nbsp FILENAME constant.
+ * <ul>
+ * <li>item 1</li>
+ * <li>item 2</li>
+ * <li>item 3</li>
+ * </ul>
+ * <ol>
+ * <li>item 1</li>
+ * <li>item 2</li>
+ * <li>item 3</li>
+ * </ol>
+ *
+ * @author Nathan
+ * @version 1.0
+ * @see Tweet
+ * @since 0.5
+ */
 public class LonelyTwitterActivity extends Activity {
-
+	/**
+	 * The file that all tweets are saved there. The format of the file is JSON.
+	 * @see #loadFromFile()
+	 * @see #saveInFile()
+	 */
 	private static final String FILENAME = "file.sav";
 	private EditText bodyText;
+	private enum TweetListOrdering {DATE_ASCENDING, DATE_DESCENDING,
+		TEXT_ASCENDING, TEXT_DESCENDING};
 	private ListView oldTweetsList;
 	ArrayAdapter<Tweet> adapter;
 	private ArrayList<Tweet> tweetList;
@@ -59,11 +96,13 @@ public class LonelyTwitterActivity extends Activity {
 //            e.printStackTrace();;
 //        }
 
+
 		saveButton.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
 				setResult(RESULT_OK);
 				String text = bodyText.getText().toString();
+				text = trimExSpaces(text);
 
 				Tweet tweet = null;
 				try {
@@ -101,6 +140,31 @@ public class LonelyTwitterActivity extends Activity {
 		oldTweetsList.setAdapter(adapter);
 	}
 
+	/**
+	 * Trims extra spaces using regular expression.
+	 * @param inputString string that needs to be cleared of extra apaces
+	 * @return resulting string
+     */
+	private String trimExSpaces(String inputString) {
+		inputString = inputString.replaceAll("\\s+", " ");
+		return inputString;
+	}
+
+
+	/**
+	 * This method sorts items in the tweet list and refreshes the adapter
+	 * @param ordering ordering to be used
+     */
+	private void sortTweetListItems(TweetListOrdering ordering) {
+		// TODO
+	}
+
+	/**
+	 * Loads file from specified.
+	 *
+	 * @throws TweetTooLongException if the text is too long.
+	 * @exception FileNotFoundException if the file is not created first
+	 */
 	private void loadFromFile() {
 		try {
 			FileInputStream fis = openFileInput(FILENAME);
@@ -119,7 +183,12 @@ public class LonelyTwitterActivity extends Activity {
 			throw new RuntimeException();
 		}
 	}
-	
+
+	/**
+	 * Save tweets to a specified file in JSON format.
+	 *
+	 * @throws FileNotFoundException if the file does not exist
+	*/
 	private void saveInFile() {
 		try {
 			FileOutputStream fos = openFileOutput(FILENAME,
@@ -137,6 +206,5 @@ public class LonelyTwitterActivity extends Activity {
 		} catch (IOException e) {
 			throw new RuntimeException();
 		}
-
 	}
 }
