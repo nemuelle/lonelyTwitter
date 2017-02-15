@@ -19,6 +19,12 @@ public class TweetList {
         if (tweets.contains(tweet))
             throw new IllegalArgumentException();
         tweets.add(tweet);
+		
+		try {
+            tweets.add(tweet);
+        } catch (Exception e) {
+            assertEquals(e.getClass(), IllegalArgumentException.class);
+        }
     }
 
     public boolean hasTweet(Tweet tweet) {
