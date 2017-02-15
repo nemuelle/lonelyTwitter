@@ -16,11 +16,6 @@ public abstract class Tweet implements Tweetable {
         this.date = date;
     }
 
-    @Override
-    public String toString(){
-        return message;
-    }
-
     public abstract Boolean isImportant();
 
 
@@ -42,5 +37,29 @@ public abstract class Tweet implements Tweetable {
 
     public Date getDate() {
         return date;
+    }
+	
+	@Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (!(o instanceof Tweet)) return false;
+
+        Tweet tweet = (Tweet) o;
+
+        return tweet.getMessage().equals(message) &&
+                tweet.getDate().equals(date);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + message.hashCode();
+        result = 31 + result + date.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString(){
+        return date.toString() + " | " + message;
     }
 }
