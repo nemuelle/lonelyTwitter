@@ -1,8 +1,12 @@
 package ca.ualberta.cs.lonelytwitter;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public abstract class Tweet implements Tweetable {
+public abstract class Tweet implements Tweetable, Parcelable {
     private String message;
     private Date date;
 
@@ -14,6 +18,16 @@ public abstract class Tweet implements Tweetable {
     public Tweet(String message, Date date){
         this.message = message;
         this.date = date;
+    }
+
+    protected Tweet(Parcel in) {
+        this.message = in.readString();
+
+        try {
+            date = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy").parse(in.readString());
+        } catch (java.text.ParseException e) {
+            this.date = null;
+        }
     }
 
     @Override
@@ -43,4 +57,18 @@ public abstract class Tweet implements Tweetable {
     public Date getDate() {
         return date;
     }
+
+    /**
+     * this must be unique per subclass
+     * @return
+     */
+    public int describeContents() {
+        return this.hashCode();
+    }
+
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(message);
+        dest.writeString(date.toString());
+    }
+
 }
